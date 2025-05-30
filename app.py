@@ -8,6 +8,9 @@ db_config = {}
 if 'messages' not in st.session_state : 
     st.session_state['messages'] = [{'role' : 'assistant', 'content' : 'how can i help you'}] 
 
+if 'db_name' not in st.session_state : 
+    st.session_state['db_name'] = ""
+
 #sidebar
 with st.sidebar : 
     st.title('🔗 Langchain : Chat your Database with Agent')
@@ -18,15 +21,20 @@ with st.sidebar :
         db_config["server_name"] = st.text_input('Server Name')
         db_config["db_name"] = st.text_input('Database Name')
             
-    elif select == 'mysql' : 
+    elif select == 'mysql' :
+        st.session_state['db_name'] = ""
         db_config["user"] = st.text_input('User')
         db_config["password"] = st.text_input('Password', type='password')
         db_config["host"] = st.text_input('Localhost')
-        db_config["db_name"] = st.text_input('Database Name')
+        db_config["db_name"] = st.text_input('Database Name', value=st.session_state.db_name, key='db_name_input')
             
 
     api_key = st.text_input('LLM Groq API Key', type='password')
 
+    reset = st.button('Clear') 
+    if reset : 
+        st.session_state['messages'] = [{'role' : 'assistant', 'content' : 'how can i help you'}] 
+    
 #mainbar
 st.title('🤖 Chatbot')     
 
@@ -50,3 +58,4 @@ else :
         response = agent.run(query, callbacks=[callback_handler])
         st.session_state['messages'].append({'role' : 'assistant', 'content' : response})
         st.chat_message('assistant').write(response)
+
