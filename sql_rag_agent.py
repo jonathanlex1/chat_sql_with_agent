@@ -13,12 +13,7 @@ load_dotenv()
 GROQ_API_KEY = os.getenv('GROQ_API_KEY') 
 
 #databse configuration
-db_config={
-    "user":'root',
-    "password":'12345', 
-    "db_name":'database_belajar', 
-    "host":"localhost:3306"
-}
+db_config={}
 
 # SQL Server connection
 def sql_server_db_engine(server_name:str, db_name:str):

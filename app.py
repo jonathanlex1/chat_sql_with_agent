@@ -2,12 +2,13 @@ import streamlit as st
 from langchain.callbacks.streamlit import StreamlitCallbackHandler
 from sql_rag_agent import llm_agent
 
-
+#database configuration
 db_config = {}
 
 if 'messages' not in st.session_state : 
     st.session_state['messages'] = [{'role' : 'assistant', 'content' : 'how can i help you'}] 
 
+#sidebar
 with st.sidebar : 
     st.title('🔗 Langchain : Chat your Database with Agent')
     
@@ -26,7 +27,7 @@ with st.sidebar :
 
     api_key = st.text_input('LLM Groq API Key', type='password')
 
-
+#mainbar
 st.title('🤖 Chatbot')     
 
 for message in st.session_state['messages']: 
@@ -49,9 +50,3 @@ else :
         response = agent.run(query, callbacks=[callback_handler])
         st.session_state['messages'].append({'role' : 'assistant', 'content' : response})
         st.chat_message('assistant').write(response)
-
-
-
-    
-
-    
