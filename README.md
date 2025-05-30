@@ -18,7 +18,6 @@ This project is an LLM-powered chatbot application that allows users to ask ques
 
 ```bash
 git clone https://github.com/jonathanlex1/chat_sql_with_agent
-cd app.py
 ```
 
 ### 2. Install Dependencies
